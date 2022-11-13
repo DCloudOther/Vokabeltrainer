@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Vokabeltrainer</title>
+    <link rel="icon" type="image/jpg" href="img/favicon.jpg">
+</head>
+    <body>
+        <!-- include MDL -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+        <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+        <!-- Uses a transparent header that draws on top of the layout's background -->
+        <style>
+            .demo-layout-transparent {
+            background: url('img/wallpaper.jpg') center / cover;
+            }
+            .demo-layout-transparent .mdl-layout__header,
+            .demo-layout-transparent .mdl-layout__drawer-button {
+            /* This background is dark, so we set text to white. Use 87% black instead if
+                your background is light. */
+            color: white;
+            }
+            </style>
+            
+            <div class="demo-layout-transparent mdl-layout mdl-js-layout">
+            <header class="mdl-layout__header mdl-layout__header--transparent">
+                <div class="mdl-layout__header-row">
+                <!-- Title -->
+                <span class="mdl-layout-title">Vokabeltrainer</span>
+                <!-- Add spacer, to align navigation to the right -->
+                <div class="mdl-layout-spacer"></div>
+                </div>
+            </header>
+            <div class="mdl-layout__drawer">
+                <span class="mdl-layout-title">RG93bkNsb3Vk</span>
+            </div>
+            <main class="mdl-layout__content">
+                <!-- Wide card -->
+                <style>
+                    #full {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        margin: 100px;
+                    }
+                </style>
+                <div id="full">
+                    <style>
+                    .demo-card-wide.mdl-card {
+                    width: 512px;
+                    background-color: rgb(26, 26, 26);
+                    }
+                    .demo-card-wide > .mdl-card__title {
+                    color: #fff;
+                    height: 176px;
+                    background: url('img/box_wallpaper.jpg') center / cover;
+                    }
+                    .demo-card-wide > .mdl-card__menu {
+                    color: #fff;
+                    }
+                    </style>
+                    
+                    <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+                    <div class="mdl-card__title">
+                        <h2 class="mdl-card__title-text">Vokabeltrainer by Valentin aka RG93bkNsb3Vk</h2>
+                    </div>
+                    <div class="mdl-card__supporting-text" id="vocab_box" style="color: rgb(204, 204, 204);">
+                        
+                    </div>
+                    <div class="mdl-card__actions mdl-card--border">
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" id="contbut">
+                            Weiter
+                        </a>
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" id="rigbut">
+                            Richtig
+                        </a>
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" id="wrobut">
+                            Falsch
+                        </a>
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" id="resview" style="visibility: hidden">
+                            Bisherige Ergebnisse
+                        </a>
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" id="newtry" style="visibility: hidden">
+                            Neuer Versuch
+                        </a>
+                        <script>
+                            let right = 0;
+                            let wrong = 0;
+                            let vocab_count = 0;
+                            let count = 0;
+                            
+                            let post_quest = () => {
+                                document.getElementById("rigbut").style.visibility = "hidden";
+                                document.getElementById("wrobut").style.visibility = "hidden";
+                                document.getElementById("contbut").style.visibility = "hidden";
+                                document.getElementById("resview").style.visibility = "visible";
+                                document.getElementById('vocab_box').innerHTML = `Du hast von ${vocab_count} Vokabeln ${right} Richtig und ${wrong} Falsch!`;
+                                ls_mgmt();
+                            }                           
+                            
+                            let vocab_fun = () => {
+                                const vocab = [
+                                    "Arbeitsspeicher", "Temporärer Speicher für geöffnete Dokumente/Dateien", 
+                                    "eine Pixelgrafik", "eine Grafik, die aus einzelnen Pixeln besteht", 
+                                    "eine Vektorgrafik", "eine Grafik, die sich aus einfachen geometrischen Körpern zusamemnsetzt (Basis-Limitation durch Formen)", 
+                                    "Datenträger", "Speicher für Dateien (z.B. Festlatte, USB-Stick, SSD)", 
+                                    "Objekt", "Beschreibt ein Objekt mit Attributen und deren Werten, baut auf Klasse auf", 
+                                    "Klasse", "\"Bauplan\" für Objekte, enthält Attribute ohne Werte und Methoden. Klassennamen werden in GROßBUSCHSTABEN geschrieben", 
+                                    "Methode", "Nimmt Parameter an, führt eine bestimmte Aktion an einem Objekt aus", 
+                                    "Informatik", "Systematische Verarbeitung von Informationen, besonders mit Computern"
+                                ];
+
+                                let current_vocab = vocab[count];
+                                let current_solution = vocab[count+1];
+                                count+=2;
+                                document.getElementById('vocab_box').innerHTML = current_vocab;
+
+                                document.getElementById("rigbut").style.visibility = "hidden";
+                                document.getElementById("wrobut").style.visibility = "hidden";
+                                const cbutton = document.querySelector("#contbut");
+                                cbutton.onclick = () => {
+                                    document.getElementById("rigbut").style.visibility = "visible";
+                                    document.getElementById("wrobut").style.visibility = "visible";
+                                    document.getElementById("contbut").style.visibility = "hidden";
+                                    document.getElementById('vocab_box').innerHTML = current_solution;
+                                    vocab_count++;
+                                }
+                                const wrongbutton = document.querySelector("#wrobut");
+                                wrongbutton.onclick = () => {
+                                    document.getElementById("rigbut").style.visibility = "hidden";
+                                    document.getElementById("wrobut").style.visibility = "hidden";
+                                    document.getElementById("contbut").style.visibility = "visible";
+                                    wrong++;
+                                    if(count < vocab.length) { vocab_fun(); } else { post_quest(); }
+                                }
+                                const rightbutton = document.querySelector("#rigbut");
+                                rightbutton.onclick = () => {
+                                    document.getElementById("rigbut").style.visibility = "hidden";
+                                    document.getElementById("wrobut").style.visibility = "hidden";
+                                    document.getElementById("contbut").style.visibility = "visible";
+                                    right++;
+                                    if(count < vocab.length) { vocab_fun(); } else { post_quest(); } 
+                                }
+                            }
+
+                            vocab_fun();
+
+                            let ls_mgmt = () => {
+                                if (localStorage.getItem('scores') === null) {
+                                    localStorage.setItem('scores', "Gesamt / Falsch / Richtig");
+                                }
+                                let scores = localStorage.getItem('scores');
+                                let currentscorestr = `;${vocab_count}/${wrong}/${right}`;
+                                scores += currentscorestr;
+                                localStorage.setItem('scores', scores);
+                                scores = localStorage.getItem('scores');
+
+                                const resviewbutton = document.querySelector("#resview");
+                                resviewbutton.onclick = () => {
+                                document.getElementById("resview").style.visibility = "hidden";
+                                    const score_array = scores.split(";");
+                                    let final_score_list = "";
+                                    let finlist = (list_elem) => {
+                                        final_score_list += `${list_elem}<br/>`
+                                    }
+                                    score_array.forEach(finlist);
+                                    document.getElementById("vocab_box").innerHTML = final_score_list;
+                                }
+                                document.getElementById("newtry").style.visibility = "visible";
+                                let newtrybutton = document.querySelector("#newtry");
+                                newtrybutton.onclick = () => {
+                                    document.location.reload(true);
+                                }
+                            } 
+
+                        </script>
+                    </div>
+                    </div>
+                </div>
+            </main>
+            </div>
+    </body>
+</html>
