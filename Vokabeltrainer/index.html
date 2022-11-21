@@ -34,7 +34,7 @@
                 </div>
             </header>
             <div class="mdl-layout__drawer">
-                <span class="mdl-layout-title">RG93bkNsb3Vk</span>
+                <span class="mdl-layout-title">Von Valentin :)</span>
             </div>
             <main class="mdl-layout__content">
                 <!-- Wide card -->
@@ -64,7 +64,7 @@
                     
                     <div class="demo-card-wide mdl-card mdl-shadow--2dp">
                     <div class="mdl-card__title">
-                        <h2 class="mdl-card__title-text">Vokabeltrainer by Valentin aka RG93bkNsb3Vk</h2>
+                        <h2 class="mdl-card__title-text">Vokabeltrainer</h2>
                     </div>
                     <div class="mdl-card__supporting-text" id="vocab_box" style="color: rgb(204, 204, 204);">
                         
@@ -148,10 +148,10 @@
 
                             let ls_mgmt = () => {
                                 if (localStorage.getItem('scores') === null) {
-                                    localStorage.setItem('scores', "Gesamt / Falsch / Richtig");
+                                    localStorage.setItem('scores', "Bishreige Ergebnisse: ");
                                 }
                                 let scores = localStorage.getItem('scores');
-                                let currentscorestr = `;${vocab_count}/${wrong}/${right}`;
+                                let currentscorestr = `;Gesamt: ${vocab_count} Davon richtig: ${wrong} Davon falsch: ${right}`;
                                 scores += currentscorestr;
                                 localStorage.setItem('scores', scores);
                                 scores = localStorage.getItem('scores');
